@@ -1,4 +1,29 @@
-Shadowsocks for Windows
+Shadowsocks for Windows(forked)
+======================
+## Learning Notes
+### class Configuration
+[Serializable]
+class Configuration
+{
+  GetCurrentServer(), GetDefaultServer(),CheckServer(Server server),CheckPort(int port),CheckPassword(string password),CheckServer(string server)
+  public static void Save(Configuration config){string jsonStr = SimpleJson.SimpleJson.SerializeObject(config); sw.Write(jsonStr);sw.Flush();}
+  public static Configuration Load()
+  {
+    string jsonStr = File.ReadAllText(filename);
+    Configuration config = SimpleJson.SimpleJson.DeserializeObject<Configuration>(jsonStr, new JsonSerializerStrategy());
+  }
+  private class JsonSerializerStrategy : SimpleJson.PocoJsonSerializerStrategy{//convert string to int}
+}
+
+### class Server
+[Serializable]
+class Server
+{
+  public string GetFriendlyName();
+  public Server();
+  public Server(string ssURL) : this(){}
+}
+
 =======================
 
 [![Build Status]][Appveyor]
